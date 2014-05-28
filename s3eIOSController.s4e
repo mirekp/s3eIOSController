@@ -1,0 +1,85 @@
+include:
+#include <s3eTypes.h>
+
+// Opaque pointer struct
+typedef struct s3eIOSController s3eIOSController;
+
+typedef enum s3eIOSControllerCallback
+{
+	/**
+	 * Called when a new controller is connected
+	 * systemData will be a pointer to an s3eISOController for the connected device.
+	 */
+	s3eIOSControllerCallback_Connected,
+	/**
+	 * Called when a controller is disconnected
+	 * systemData will be a pointer to an s3eISOController for the disconnected device.
+	 */
+	s3eIOSControllerCallback_Disconnected,
+    /**
+	 * Called when the pause button is pressed on a controller
+	 * systemData will be a pointer to an s3eISOController for the connected device.
+	 */
+    s3eIOSControllerCallback_PausePressed,
+	
+	// Marker for the last callback
+	s3eIOSControllerCallback_MAX
+} s3eIOSControllerCallback;
+
+typedef enum s3eIOSControllerButton
+{
+    // Basic controller
+    s3eIOSControllerButton_A,
+    s3eIOSControllerButton_B,
+    s3eIOSControllerButton_X,
+    s3eIOSControllerButton_Y,
+    s3eIOSControllerButton_DPadUp,
+    s3eIOSControllerButton_DPadDown,
+    s3eIOSControllerButton_DPadLeft,
+    s3eIOSControllerButton_DPadRight,
+    s3eIOSControllerButton_LeftShoulder,
+    s3eIOSControllerButton_RightShoulder,
+    
+    // Extended controller
+    s3eIOSControllerButton_LeftTrigger,
+    s3eIOSControllerButton_RightTrigger,
+    s3eIOSControllerButton_LeftThumbstickUp,
+    s3eIOSControllerButton_LeftThumbstickDown,
+    s3eIOSControllerButton_LeftThumbstickLeft,
+    s3eIOSControllerButton_LeftThumbstickRight,
+    s3eIOSControllerButton_RightThumbstickUp,
+    s3eIOSControllerButton_RightThumbstickDown,
+    s3eIOSControllerButton_RightThumbstickLeft,
+    s3eIOSControllerButton_RightThumbstickRight,
+} s3eIOSControllerButton;
+
+typedef enum s3eIOSControllerAxis
+{
+    s3eIOSControllerAxis_DPadX,
+    s3eIOSControllerAxis_DPadY,
+    s3eIOSControllerAxis_LeftThumbstickX,
+    s3eIOSControllerAxis_LeftThumbstickY,
+    s3eIOSControllerAxis_RightThumbstickX,
+    s3eIOSControllerAxis_RightThumbstickY,
+    s3eIOSControllerAxis_LeftTrigger,
+    s3eIOSControllerAxis_RightTrigger,
+} s3eIOSControllerAxis;
+
+
+functions:
+
+int s3eIOSController_getControllerCount() 0
+s3eIOSController* s3eIOSController_getController(int index) NULL
+
+// Callback functions
+s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData) S3E_RESULT_ERROR
+s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn) S3E_RESULT_ERROR
+
+s3eBool s3eIOSController_supportsBasic(s3eIOSController* controller) S3E_FALSE
+s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller) S3E_FALSE
+
+int s3eIOSController_getPlayerIndex(s3eIOSController* controller) -1
+void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int index)
+
+s3eBool s3eIOSController_getButtonState(s3eIOSController* controller, s3eIOSControllerButton button) S3E_FALSE
+float s3eIOSController_getAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis) 0.0f
