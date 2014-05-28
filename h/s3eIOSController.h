@@ -90,9 +90,9 @@ S3E_BEGIN_C_DECL
  */
 s3eBool s3eIOSControllerAvailable();
 
-int s3eIOSController_getControllerCount();
+uint32 s3eIOSController_getControllerCount();
 
-s3eIOSController* s3eIOSController_getController(int index);
+s3eIOSController* s3eIOSController_getController(uint32 index);
 
 s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData);
 
@@ -102,9 +102,9 @@ s3eBool s3eIOSController_supportsBasic(s3eIOSController* controller);
 
 s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller);
 
-int s3eIOSController_getPlayerIndex(s3eIOSController* controller);
+int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller);
 
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int index);
+void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index);
 
 s3eBool s3eIOSController_getButtonState(s3eIOSController* controller, s3eIOSControllerButton button);
 

@@ -42,9 +42,9 @@ void s3eIOSControllerTerminate();
  * Platform-specific termination, implemented on each platform
  */
 void s3eIOSControllerTerminate_platform();
-int s3eIOSController_getControllerCount_platform();
+uint32 s3eIOSController_getControllerCount_platform();
 
-s3eIOSController* s3eIOSController_getController_platform(int index);
+s3eIOSController* s3eIOSController_getController_platform(uint32 index);
 
 s3eResult s3eIOSControllerRegister_platform(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData);
 
@@ -54,9 +54,9 @@ s3eBool s3eIOSController_supportsBasic_platform(s3eIOSController* controller);
 
 s3eBool s3eIOSController_supportsExtended_platform(s3eIOSController* controller);
 
-int s3eIOSController_getPlayerIndex_platform(s3eIOSController* controller);
+int32 s3eIOSController_getPlayerIndex_platform(s3eIOSController* controller);
 
-void s3eIOSController_setPlayerIndex_platform(s3eIOSController* controller, int index);
+void s3eIOSController_setPlayerIndex_platform(s3eIOSController* controller, int32 index);
 
 s3eBool s3eIOSController_getButtonState_platform(s3eIOSController* controller, s3eIOSControllerButton button);
 

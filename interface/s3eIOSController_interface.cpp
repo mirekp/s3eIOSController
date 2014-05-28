@@ -22,14 +22,14 @@
 /**
  * Definitions for functions types passed to/from s3eExt interface
  */
-typedef        int(*s3eIOSController_getControllerCount_t)();
-typedef s3eIOSController*(*s3eIOSController_getController_t)(int index);
+typedef     uint32(*s3eIOSController_getControllerCount_t)();
+typedef s3eIOSController*(*s3eIOSController_getController_t)(uint32 index);
 typedef  s3eResult(*s3eIOSControllerRegister_t)(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData);
 typedef  s3eResult(*s3eIOSControllerUnRegister_t)(s3eIOSControllerCallback callbackID, s3eCallback callbackFn);
 typedef    s3eBool(*s3eIOSController_supportsBasic_t)(s3eIOSController* controller);
 typedef    s3eBool(*s3eIOSController_supportsExtended_t)(s3eIOSController* controller);
-typedef        int(*s3eIOSController_getPlayerIndex_t)(s3eIOSController* controller);
-typedef       void(*s3eIOSController_setPlayerIndex_t)(s3eIOSController* controller, int index);
+typedef      int32(*s3eIOSController_getPlayerIndex_t)(s3eIOSController* controller);
+typedef       void(*s3eIOSController_setPlayerIndex_t)(s3eIOSController* controller, int32 index);
 typedef    s3eBool(*s3eIOSController_getButtonState_t)(s3eIOSController* controller, s3eIOSControllerButton button);
 typedef      float(*s3eIOSController_getAxisValue_t)(s3eIOSController* controller, s3eIOSControllerAxis axis);
 
@@ -93,7 +93,7 @@ s3eBool s3eIOSControllerAvailable()
     return g_GotExt ? S3E_TRUE : S3E_FALSE;
 }
 
-int s3eIOSController_getControllerCount()
+uint32 s3eIOSController_getControllerCount()
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[0] func: s3eIOSController_getControllerCount"));
 
@@ -104,7 +104,7 @@ int s3eIOSController_getControllerCount()
     s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
 #endif
 
-    int ret = g_Ext.m_s3eIOSController_getControllerCount();
+    uint32 ret = g_Ext.m_s3eIOSController_getControllerCount();
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
@@ -113,7 +113,7 @@ int s3eIOSController_getControllerCount()
     return ret;
 }
 
-s3eIOSController* s3eIOSController_getController(int index)
+s3eIOSController* s3eIOSController_getController(uint32 index)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[1] func: s3eIOSController_getController"));
 
@@ -213,7 +213,7 @@ s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller)
     return ret;
 }
 
-int s3eIOSController_getPlayerIndex(s3eIOSController* controller)
+int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[6] func: s3eIOSController_getPlayerIndex"));
 
@@ -224,7 +224,7 @@ int s3eIOSController_getPlayerIndex(s3eIOSController* controller)
     s3eDeviceLoaderCallStart(S3E_TRUE, NULL);
 #endif
 
-    int ret = g_Ext.m_s3eIOSController_getPlayerIndex(controller);
+    int32 ret = g_Ext.m_s3eIOSController_getPlayerIndex(controller);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, NULL);
@@ -233,7 +233,7 @@ int s3eIOSController_getPlayerIndex(s3eIOSController* controller)
     return ret;
 }
 
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int index)
+void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[7] func: s3eIOSController_setPlayerIndex"));
 

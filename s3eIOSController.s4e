@@ -68,8 +68,8 @@ typedef enum s3eIOSControllerAxis
 
 functions:
 
-int s3eIOSController_getControllerCount() 0
-s3eIOSController* s3eIOSController_getController(int index) NULL
+uint32 s3eIOSController_getControllerCount() 0
+s3eIOSController* s3eIOSController_getController(uint32 index) NULL
 
 // Callback functions
 s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData) S3E_RESULT_ERROR
@@ -78,8 +78,8 @@ s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback callbackID, s3eCal
 s3eBool s3eIOSController_supportsBasic(s3eIOSController* controller) S3E_FALSE
 s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller) S3E_FALSE
 
-int s3eIOSController_getPlayerIndex(s3eIOSController* controller) -1
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int index)
+int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller) -1
+void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index)
 
 s3eBool s3eIOSController_getButtonState(s3eIOSController* controller, s3eIOSControllerButton button) S3E_FALSE
 float s3eIOSController_getAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis) 0.0f

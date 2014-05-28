@@ -23,12 +23,12 @@ void s3eIOSControllerTerminate()
     s3eIOSControllerTerminate_platform();
 }
 
-int s3eIOSController_getControllerCount()
+uint32 s3eIOSController_getControllerCount()
 {
 	return s3eIOSController_getControllerCount_platform();
 }
 
-s3eIOSController* s3eIOSController_getController(int index)
+s3eIOSController* s3eIOSController_getController(uint32 index)
 {
 	return s3eIOSController_getController_platform(index);
 }
@@ -53,12 +53,12 @@ s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller)
 	return s3eIOSController_supportsExtended_platform(controller);
 }
 
-int s3eIOSController_getPlayerIndex(s3eIOSController* controller)
+int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller)
 {
 	return s3eIOSController_getPlayerIndex_platform(controller);
 }
 
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int index)
+void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index)
 {
 	s3eIOSController_setPlayerIndex_platform(controller, index);
 }
