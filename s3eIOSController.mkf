@@ -11,6 +11,11 @@
 
 display_name "Extensions/s3eIOSController"
 
+commands
+{
+    "move_frameworks.py"
+}
+
 includepath h
 
 files
@@ -39,4 +44,6 @@ deployments
     #iphone-link-opts="-framework X" #Use this to bring in any additional link options needed
     iphone-link-lib="s3eIOSController"
     iphone-link-libdir="lib/iphone"
+    
+    iphone-link-opts="-F$MARMALADE_ROOT/frameworks -framework GameController"
 }
