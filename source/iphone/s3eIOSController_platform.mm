@@ -7,18 +7,53 @@
  * be overwritten (unless --force is specified) and is intended to be modified.
  */
 #include "s3eIOSController_internal.h"
+#include "s3eEdk.h"
 
 #import <GameController/GameController.h>
+
+@interface S3EIOSController : NSObject
+@end
+
+@implementation S3EIOSController
++(void)controllerConnected:(GCController*)controller
+{
+    controller.controllerPausedHandler = ^(GCController *gcController) { [S3EIOSController controllerPaused: gcController]; };
+    if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Connected))
+	{
+        s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Connected, controller);
+	}
+}
+
++(void)controllerDisconnected:(GCController*)controller
+{
+    if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Disconnected))
+	{
+        s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Disconnected, controller);
+	}
+}
++(void)controllerPaused:(GCController*)controller
+{
+    if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_PausePressed))
+	{
+        s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_PausePressed, controller);
+	}
+}
+@end
 
 s3eResult s3eIOSControllerInit_platform()
 {
     // Add any platform-specific initialisation code here
+    
+    [[NSNotificationCenter defaultCenter] addObserver:[S3EIOSController class] selector:@selector(controllerConnected:) name:GCControllerDidConnectNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:[S3EIOSController class] selector:@selector(controllerDisconnected:) name:GCControllerDidDisconnectNotification object:nil];
+    
     return S3E_RESULT_SUCCESS;
 }
 
 void s3eIOSControllerTerminate_platform()
 {
     // Add any platform-specific termination code here
+    [[NSNotificationCenter defaultCenter] removeObserver:[S3EIOSController class]];
 }
 
 uint32 s3eIOSController_getControllerCount_platform()
@@ -33,12 +68,12 @@ s3eIOSController* s3eIOSController_getController_platform(uint32 index)
 
 s3eResult s3eIOSControllerRegister_platform(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData)
 {
-    return S3E_RESULT_ERROR;
+    return s3eEdkCallbacksRegister(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_MAX, callbackID, callbackFn, userData, false);
 }
 
 s3eResult s3eIOSControllerUnRegister_platform(s3eIOSControllerCallback callbackID, s3eCallback callbackFn)
 {
-    return S3E_RESULT_ERROR;
+    return s3eEdkCallbacksUnRegister(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_MAX, callbackID, callbackFn);
 }
 
 s3eBool s3eIOSController_supportsBasic_platform(s3eIOSController* controller)
