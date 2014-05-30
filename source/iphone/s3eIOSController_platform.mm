@@ -10,28 +10,33 @@
 #include "s3eEdk.h"
 
 #import <GameController/GameController.h>
+#import <Foundation/Foundation.h>
 
 @interface S3EIOSController : NSObject
 @end
 
+S3EIOSController *g_Controller = NULL;
+
 @implementation S3EIOSController
-+(void)controllerConnected:(GCController*)controller
+-(void)controllerConnected:(NSNotification*)notification
 {
-    controller.controllerPausedHandler = ^(GCController *gcController) { [S3EIOSController controllerPaused: gcController]; };
+    GCController *controller = (GCController*)notification.object;
+    controller.controllerPausedHandler = ^(GCController *gcController) { [g_Controller controllerPaused: gcController]; };
     if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Connected))
 	{
         s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Connected, controller);
 	}
 }
 
-+(void)controllerDisconnected:(GCController*)controller
+-(void)controllerDisconnected:(NSNotification*)notification
 {
+    GCController *controller = (GCController*)notification.object;
     if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Disconnected))
 	{
         s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_Disconnected, controller);
 	}
 }
-+(void)controllerPaused:(GCController*)controller
+-(void)controllerPaused:(GCController*)controller
 {
     if (s3eEdkCallbacksIsRegistered(S3E_EXT_IOSCONTROLLER_HASH, s3eIOSControllerCallback_PausePressed))
 	{
@@ -44,8 +49,15 @@ s3eResult s3eIOSControllerInit_platform()
 {
     // Add any platform-specific initialisation code here
     
-    [[NSNotificationCenter defaultCenter] addObserver:[S3EIOSController class] selector:@selector(controllerConnected:) name:GCControllerDidConnectNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:[S3EIOSController class] selector:@selector(controllerDisconnected:) name:GCControllerDidDisconnectNotification object:nil];
+    g_Controller = [[S3EIOSController alloc] init];
+    
+    for(id controller in GCController.controllers)
+    {
+        ((GCController*)controller).controllerPausedHandler = ^(GCController *gcController) { [g_Controller controllerPaused: gcController]; };
+    }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:g_Controller selector:@selector(controllerConnected:) name:GCControllerDidConnectNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:g_Controller selector:@selector(controllerDisconnected:) name:GCControllerDidDisconnectNotification object:nil];
     
     return S3E_RESULT_SUCCESS;
 }
@@ -53,7 +65,15 @@ s3eResult s3eIOSControllerInit_platform()
 void s3eIOSControllerTerminate_platform()
 {
     // Add any platform-specific termination code here
-    [[NSNotificationCenter defaultCenter] removeObserver:[S3EIOSController class]];
+    [[NSNotificationCenter defaultCenter] removeObserver:g_Controller];
+    
+    for(id controller in GCController.controllers)
+    {
+        ((GCController*)controller).controllerPausedHandler = nil;
+    }
+    
+    [g_Controller release];
+    g_Controller = NULL;
 }
 
 uint32 s3eIOSController_getControllerCount_platform()
@@ -156,21 +176,21 @@ float s3eIOSController_getAxisValue_platform(s3eIOSController* controller, s3eIO
     switch(axis)
     {
         case s3eIOSControllerAxis_DPadX:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.xAxis;
+            return gcController.gamepad != nil ? gcController.gamepad.dpad.xAxis.value : 0.0f;
         case s3eIOSControllerAxis_DPadY:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.yAxis;
+            return gcController.gamepad != nil ? gcController.gamepad.dpad.yAxis.value : 0.0f;
         case s3eIOSControllerAxis_LeftThumbstickX:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.leftThumbstick.xAxis;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.leftThumbstick.xAxis.value : 0.0f;
         case s3eIOSControllerAxis_LeftThumbstickY:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.leftThumbstick.yAxis;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.leftThumbstick.yAxis.value : 0.0f;
         case s3eIOSControllerAxis_RightThumbstickX:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.rightThumbstick.xAxis;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.rightThumbstick.xAxis.value : 0.0f;
         case s3eIOSControllerAxis_RightThumbstickY:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.rightThumbstick.yAxis;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.rightThumbstick.yAxis.value : 0.0f;
         case s3eIOSControllerAxis_LeftTrigger:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.leftTrigger.value;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.leftTrigger.value : 0.0f;
         case s3eIOSControllerAxis_RightTrigger:
-            return gcController.extendedGamepad != nil && gcController.extendedGamepad.rightTrigger.value;
+            return gcController.extendedGamepad != nil ? gcController.extendedGamepad.rightTrigger.value : 0.0f;
         default:
             return 0.0f;
     }
