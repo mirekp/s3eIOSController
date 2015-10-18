@@ -23,52 +23,42 @@ void s3eIOSControllerTerminate()
     s3eIOSControllerTerminate_platform();
 }
 
-uint32 s3eIOSController_getControllerCount()
+uint32 s3eIOSControllerGetControllerCount()
 {
-	return s3eIOSController_getControllerCount_platform();
+	return s3eIOSControllerGetControllerCount_platform();
 }
 
-s3eIOSController* s3eIOSController_getController(uint32 index)
+s3eIOSController* s3eIOSControllerGetController(uint32 index)
 {
-	return s3eIOSController_getController_platform(index);
+	return s3eIOSControllerGetController_platform(index);
 }
 
-s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData)
+s3eBool s3eIOSControllerSupportsBasic(s3eIOSController* controller)
 {
-	return s3eIOSControllerRegister_platform(callbackID, callbackFn, userData);
+	return s3eIOSControllerSupportsBasic_platform(controller);
 }
 
-s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn)
+s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller)
 {
-	return s3eIOSControllerUnRegister_platform(callbackID, callbackFn);
+	return s3eIOSControllerSupportsExtended_platform(controller);
 }
 
-s3eBool s3eIOSController_supportsBasic(s3eIOSController* controller)
+int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller)
 {
-	return s3eIOSController_supportsBasic_platform(controller);
+	return s3eIOSControllerGetPlayerIndex_platform(controller);
 }
 
-s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller)
+void s3eIOSControllerSetPlayerIndex(s3eIOSController* controller, int32 index)
 {
-	return s3eIOSController_supportsExtended_platform(controller);
+	s3eIOSControllerSetPlayerIndex_platform(controller, index);
 }
 
-int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller)
+s3eBool s3eIOSControllerGetButtonState(s3eIOSController* controller, s3eIOSControllerButton button)
 {
-	return s3eIOSController_getPlayerIndex_platform(controller);
+	return s3eIOSControllerGetButtonState_platform(controller, button);
 }
 
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index)
+float s3eIOSControllerGetAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis)
 {
-	s3eIOSController_setPlayerIndex_platform(controller, index);
-}
-
-s3eBool s3eIOSController_getButtonState(s3eIOSController* controller, s3eIOSControllerButton button)
-{
-	return s3eIOSController_getButtonState_platform(controller, button);
-}
-
-float s3eIOSController_getAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis)
-{
-	return s3eIOSController_getAxisValue_platform(controller, axis);
+	return s3eIOSControllerGetAxisValue_platform(controller, axis);
 }

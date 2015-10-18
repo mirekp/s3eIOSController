@@ -27,89 +27,119 @@ typedef enum s3eIOSControllerCallback
 	 * Called when a new controller is connected
 	 * systemData will be a pointer to an s3eISOController for the connected device.
 	 */
-	s3eIOSControllerCallback_Connected,
+	S3E_IOSCONTROLLER_CALLBACK_CONNECTED,
 	/**
 	 * Called when a controller is disconnected
 	 * systemData will be a pointer to an s3eISOController for the disconnected device.
 	 */
-	s3eIOSControllerCallback_Disconnected,
+	S3E_IOSCONTROLLER_CALLBACK_DISCONNECTED,
     /**
 	 * Called when the pause button is pressed on a controller
 	 * systemData will be a pointer to an s3eISOController for the connected device.
 	 */
-    s3eIOSControllerCallback_PausePressed,
+    S3E_IOSCONTROLLER_CALLBACK_PAUSE_PRESSED,
 	
 	// Marker for the last callback
-	s3eIOSControllerCallback_MAX
+	S3E_IOSCONTROLLER_CALLBACK_MAX
 } s3eIOSControllerCallback;
 
 typedef enum s3eIOSControllerButton
 {
     // Basic controller
-    s3eIOSControllerButton_A,
-    s3eIOSControllerButton_B,
-    s3eIOSControllerButton_X,
-    s3eIOSControllerButton_Y,
-    s3eIOSControllerButton_DPadUp,
-    s3eIOSControllerButton_DPadDown,
-    s3eIOSControllerButton_DPadLeft,
-    s3eIOSControllerButton_DPadRight,
-    s3eIOSControllerButton_LeftShoulder,
-    s3eIOSControllerButton_RightShoulder,
+    S3E_IOSCONTROLLER_BUTTON_A,
+    S3E_IOSCONTROLLER_BUTTON_B,
+    S3E_IOSCONTROLLER_BUTTON_X,
+    S3E_IOSCONTROLLER_BUTTON_Y,
+    S3E_IOSCONTROLLER_BUTTON_DPAD_UP,
+    S3E_IOSCONTROLLER_BUTTON_DPAD_DOWN,
+    S3E_IOSCONTROLLER_BUTTON_DPAD_LEFT,
+    S3E_IOSCONTROLLER_BUTTON_DPAD_RIGHT,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_SHOULDER,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_SHOULDER,
     
     // Extended controller
-    s3eIOSControllerButton_LeftTrigger,
-    s3eIOSControllerButton_RightTrigger,
-    s3eIOSControllerButton_LeftThumbstickUp,
-    s3eIOSControllerButton_LeftThumbstickDown,
-    s3eIOSControllerButton_LeftThumbstickLeft,
-    s3eIOSControllerButton_LeftThumbstickRight,
-    s3eIOSControllerButton_RightThumbstickUp,
-    s3eIOSControllerButton_RightThumbstickDown,
-    s3eIOSControllerButton_RightThumbstickLeft,
-    s3eIOSControllerButton_RightThumbstickRight,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_TRIGGER,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_TRIGGER,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_THUMBSTICK_UP,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_THUMBSTICK_DOWN,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_THUMBSTICK_LEFT,
+    S3E_IOSCONTROLLER_BUTTON_LEFT_THUMBSTICK_RIGHT,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_THUMBSTICK_UP,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_THUMBSTICK_DOWN,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_THUMBSTICK_LEFT,
+    S3E_IOSCONTROLLER_BUTTON_RIGHT_THUMBSTICK_RIGHT,
 } s3eIOSControllerButton;
 
 typedef enum s3eIOSControllerAxis
 {
-    s3eIOSControllerAxis_DPadX,
-    s3eIOSControllerAxis_DPadY,
-    s3eIOSControllerAxis_LeftThumbstickX,
-    s3eIOSControllerAxis_LeftThumbstickY,
-    s3eIOSControllerAxis_RightThumbstickX,
-    s3eIOSControllerAxis_RightThumbstickY,
-    s3eIOSControllerAxis_LeftTrigger,
-    s3eIOSControllerAxis_RightTrigger,
+    S3E_IOSCONTROLLER_AXIS_DPAD_X,
+    S3E_IOSCONTROLLER_AXIS_DPAD_Y,
+    S3E_IOSCONTROLLER_AXIS_LEFT_THUMBSTICK_X,
+    S3E_IOSCONTROLLER_AXIS_LEFT_THUMBSTICK_Y,
+    S3E_IOSCONTROLLER_AXIS_RIGHT_THUMBSTICK_X,
+    S3E_IOSCONTROLLER_AXIS_RIGHT_THUMBSTICK_Y,
+    S3E_IOSCONTROLLER_AXIS_LEFT_TRIGGER,
+    S3E_IOSCONTROLLER_AXIS_RIGHT_TRIGGER,
 } s3eIOSControllerAxis;
 // \cond HIDDEN_DEFINES
 S3E_BEGIN_C_DECL
 // \endcond
 
 /**
- * Returns S3E_TRUE if the IOSController extension is available.
+ * Report if the IOSController extension is available.
+ * @return S3E_TRUE if the IOSController extension is available. S3E_FALSE otherwise.
  */
 s3eBool s3eIOSControllerAvailable();
 
-uint32 s3eIOSController_getControllerCount();
+/**
+ * Registers a callback to be called for an operating system event.
+ *
+ * The available callback types are listed in @ref s3eIOSControllerCallback.
+ * @param cbid ID of the event for which to register.
+ * @param fn callback function.
+ * @param userData Value to pass to the @e userData parameter of @e NotifyFunc.
+ * @return
+ *  - @ref S3E_RESULT_SUCCESS if no error occurred.
+ *  - @ref S3E_RESULT_ERROR if the operation failed.\n
+ *
+ * @see s3eIOSControllerUnRegister
+ * @note For more information on the system data passed as a parameter to the callback
+ * registered using this function, see the @ref s3eIOSControllerCallback enum.
+ */
+s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback cbid, s3eCallback fn, void* userData);
 
-s3eIOSController* s3eIOSController_getController(uint32 index);
+/**
+ * Unregister a callback for a given event.
+ * @param cbid ID of the callback to unregister.
+ * @param fn Callback Function.
+ * @return
+ * - @ref S3E_RESULT_SUCCESS if no error occurred.
+ * - @ref S3E_RESULT_ERROR if the operation failed.\n
+ * @note For more information on the systemData passed as a parameter to the callback
+ * registered using this function, see the s3eIOSControllerCallback enum.
+ * @note It is not necessary to define a return value for any registered callback.
+ * @see s3eIOSControllerRegister
+ */
+s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback cbid, s3eCallback fn);
 
-s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn, void* userData);
+uint32 s3eIOSControllerGetControllerCount();
 
-s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback callbackID, s3eCallback callbackFn);
+s3eIOSController* s3eIOSControllerGetController(uint32 index);
 
-s3eBool s3eIOSController_supportsBasic(s3eIOSController* controller);
+s3eBool s3eIOSControllerSupportsBasic(s3eIOSController* controller);
 
-s3eBool s3eIOSController_supportsExtended(s3eIOSController* controller);
+s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller);
 
-int32 s3eIOSController_getPlayerIndex(s3eIOSController* controller);
+int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller);
 
-void s3eIOSController_setPlayerIndex(s3eIOSController* controller, int32 index);
+void s3eIOSControllerSetPlayerIndex(s3eIOSController* controller, int32 index);
 
-s3eBool s3eIOSController_getButtonState(s3eIOSController* controller, s3eIOSControllerButton button);
+s3eBool s3eIOSControllerGetButtonState(s3eIOSController* controller, s3eIOSControllerButton button);
 
-float s3eIOSController_getAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis);
+float s3eIOSControllerGetAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis);
 
+// \cond HIDDEN_DEFINES
 S3E_END_C_DECL
+// \endcond
 
 #endif /* !S3E_EXT_IOSCONTROLLER_H */

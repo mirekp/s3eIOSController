@@ -18,20 +18,30 @@ extern s3eResult s3eIOSControllerInit();
 extern void s3eIOSControllerTerminate();
 
 
+s3eResult s3eIOSControllerRegister(s3eIOSControllerCallback cbid, s3eCallback fn, void* pData)
+{
+    return s3eEdkCallbacksRegister(S3E_EXT_IOSCONTROLLER_HASH, S3E_IOSCONTROLLER_CALLBACK_MAX, cbid, fn, pData, 0);
+};
+
+s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback cbid, s3eCallback fn)
+{
+    return s3eEdkCallbacksUnRegister(S3E_EXT_IOSCONTROLLER_HASH, S3E_IOSCONTROLLER_CALLBACK_MAX, cbid, fn);
+}
+
 void s3eIOSControllerRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
     void* funcPtrs[10];
-    funcPtrs[0] = (void*)s3eIOSController_getControllerCount;
-    funcPtrs[1] = (void*)s3eIOSController_getController;
-    funcPtrs[2] = (void*)s3eIOSControllerRegister;
-    funcPtrs[3] = (void*)s3eIOSControllerUnRegister;
-    funcPtrs[4] = (void*)s3eIOSController_supportsBasic;
-    funcPtrs[5] = (void*)s3eIOSController_supportsExtended;
-    funcPtrs[6] = (void*)s3eIOSController_getPlayerIndex;
-    funcPtrs[7] = (void*)s3eIOSController_setPlayerIndex;
-    funcPtrs[8] = (void*)s3eIOSController_getButtonState;
-    funcPtrs[9] = (void*)s3eIOSController_getAxisValue;
+    funcPtrs[0] = (void*)s3eIOSControllerRegister;
+    funcPtrs[1] = (void*)s3eIOSControllerUnRegister;
+    funcPtrs[2] = (void*)s3eIOSControllerGetControllerCount;
+    funcPtrs[3] = (void*)s3eIOSControllerGetController;
+    funcPtrs[4] = (void*)s3eIOSControllerSupportsBasic;
+    funcPtrs[5] = (void*)s3eIOSControllerSupportsExtended;
+    funcPtrs[6] = (void*)s3eIOSControllerGetPlayerIndex;
+    funcPtrs[7] = (void*)s3eIOSControllerSetPlayerIndex;
+    funcPtrs[8] = (void*)s3eIOSControllerGetButtonState;
+    funcPtrs[9] = (void*)s3eIOSControllerGetAxisValue;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
@@ -41,7 +51,7 @@ void s3eIOSControllerRegisterExt()
     /*
      * Register the extension
      */
-    s3eEdkRegister("s3eIOSController", funcPtrs, sizeof(funcPtrs), flags, s3eIOSControllerInit, s3eIOSControllerTerminate, 0);
+s3eEdkRegister("s3eIOSController", funcPtrs, sizeof(funcPtrs), flags, s3eIOSControllerInit, s3eIOSControllerTerminate, 0);
 }
 
 #if !defined S3E_BUILD_S3ELOADER

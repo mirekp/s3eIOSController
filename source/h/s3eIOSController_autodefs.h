@@ -11,4 +11,12 @@
 #define S3E_EXT_IOSCONTROLLER_NAME "s3eIOSController"
 #define S3E_EXT_IOSCONTROLLER_HASH 0x5b1cd4ff
 
+#ifdef S3E_EXT_REGISTER
+#ifndef S3E_EXT_REGISTER_KEY
+#define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
+#endif
+S3E_EXT_REGISTER("s3eIOSController", 10)
+#else
+
+#endif /* S3E_EXT_REGISTER */
 #endif /* !S3EIOSCONTROLLER_AUTODEFS_H */
