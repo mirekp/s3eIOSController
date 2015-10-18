@@ -186,9 +186,109 @@ s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller)
     return ret;
 }
 
+s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller)
+{
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[6] func: s3eIOSControllerSupportsMicro"));
+
+    if (!_extLoad())
+        return S3E_FALSE;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSupportsMicro);
+#endif
+
+    s3eBool ret = g_Ext.m_s3eIOSControllerSupportsMicro(controller);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSupportsMicro);
+#endif
+
+    return ret;
+}
+
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+{
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[7] func: s3eIOSControllerGetReportsAbsoluteDpadValues"));
+
+    if (!_extLoad())
+        return S3E_FALSE;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues);
+#endif
+
+    s3eBool ret = g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues();
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues);
+#endif
+
+    return ret;
+}
+
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+{
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[8] func: s3eIOSControllerSetReportsAbsoluteDpadValues"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues);
+#endif
+
+    g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues(value);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues);
+#endif
+
+    return;
+}
+
+s3eBool s3eIOSControllerGetAllowsRotation()
+{
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[9] func: s3eIOSControllerGetAllowsRotation"));
+
+    if (!_extLoad())
+        return S3E_FALSE;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetAllowsRotation);
+#endif
+
+    s3eBool ret = g_Ext.m_s3eIOSControllerGetAllowsRotation();
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetAllowsRotation);
+#endif
+
+    return ret;
+}
+
+void s3eIOSControllerSetAllowsRotation(s3eBool value)
+{
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[10] func: s3eIOSControllerSetAllowsRotation"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetAllowsRotation);
+#endif
+
+    g_Ext.m_s3eIOSControllerSetAllowsRotation(value);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetAllowsRotation);
+#endif
+
+    return;
+}
+
 int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller)
 {
-    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[6] func: s3eIOSControllerGetPlayerIndex"));
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[11] func: s3eIOSControllerGetPlayerIndex"));
 
     if (!_extLoad())
         return -1;
@@ -208,7 +308,7 @@ int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller)
 
 void s3eIOSControllerSetPlayerIndex(s3eIOSController* controller, int32 index)
 {
-    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[7] func: s3eIOSControllerSetPlayerIndex"));
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[12] func: s3eIOSControllerSetPlayerIndex"));
 
     if (!_extLoad())
         return;
@@ -228,7 +328,7 @@ void s3eIOSControllerSetPlayerIndex(s3eIOSController* controller, int32 index)
 
 s3eBool s3eIOSControllerGetButtonState(s3eIOSController* controller, s3eIOSControllerButton button)
 {
-    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[8] func: s3eIOSControllerGetButtonState"));
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[13] func: s3eIOSControllerGetButtonState"));
 
     if (!_extLoad())
         return S3E_FALSE;
@@ -248,7 +348,7 @@ s3eBool s3eIOSControllerGetButtonState(s3eIOSController* controller, s3eIOSContr
 
 float s3eIOSControllerGetAxisValue(s3eIOSController* controller, s3eIOSControllerAxis axis)
 {
-    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[9] func: s3eIOSControllerGetAxisValue"));
+    IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[14] func: s3eIOSControllerGetAxisValue"));
 
     if (!_extLoad())
         return 0.0f;

@@ -31,22 +31,27 @@ s3eResult s3eIOSControllerUnRegister(s3eIOSControllerCallback cbid, s3eCallback 
 void s3eIOSControllerRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[10];
+    void* funcPtrs[15];
     funcPtrs[0] = (void*)s3eIOSControllerRegister;
     funcPtrs[1] = (void*)s3eIOSControllerUnRegister;
     funcPtrs[2] = (void*)s3eIOSControllerGetControllerCount;
     funcPtrs[3] = (void*)s3eIOSControllerGetController;
     funcPtrs[4] = (void*)s3eIOSControllerSupportsBasic;
     funcPtrs[5] = (void*)s3eIOSControllerSupportsExtended;
-    funcPtrs[6] = (void*)s3eIOSControllerGetPlayerIndex;
-    funcPtrs[7] = (void*)s3eIOSControllerSetPlayerIndex;
-    funcPtrs[8] = (void*)s3eIOSControllerGetButtonState;
-    funcPtrs[9] = (void*)s3eIOSControllerGetAxisValue;
+    funcPtrs[6] = (void*)s3eIOSControllerSupportsMicro;
+    funcPtrs[7] = (void*)s3eIOSControllerGetReportsAbsoluteDpadValues;
+    funcPtrs[8] = (void*)s3eIOSControllerSetReportsAbsoluteDpadValues;
+    funcPtrs[9] = (void*)s3eIOSControllerGetAllowsRotation;
+    funcPtrs[10] = (void*)s3eIOSControllerSetAllowsRotation;
+    funcPtrs[11] = (void*)s3eIOSControllerGetPlayerIndex;
+    funcPtrs[12] = (void*)s3eIOSControllerSetPlayerIndex;
+    funcPtrs[13] = (void*)s3eIOSControllerGetButtonState;
+    funcPtrs[14] = (void*)s3eIOSControllerGetAxisValue;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[10] = { 0 };
+    int flags[15] = { 0 };
 
     /*
      * Register the extension

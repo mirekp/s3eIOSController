@@ -75,6 +75,13 @@ s3eIOSController* s3eIOSControllerGetController(uint32 index) NULL
 
 s3eBool s3eIOSControllerSupportsBasic(s3eIOSController* controller) S3E_FALSE
 s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller) S3E_FALSE
+s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller) S3E_FALSE
+
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues() S3E_FALSE
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+
+s3eBool s3eIOSControllerGetAllowsRotation() S3E_FALSE
+void s3eIOSControllerSetAllowsRotation(s3eBool value)
 
 int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller) -1
 void s3eIOSControllerSetPlayerIndex(s3eIOSController* controller, int32 index)

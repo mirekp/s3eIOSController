@@ -43,6 +43,31 @@ s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller)
 	return s3eIOSControllerSupportsExtended_platform(controller);
 }
 
+s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller)
+{
+	return s3eIOSControllerSupportsMicro_platform(controller);
+}
+
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+{
+	return s3eIOSControllerGetReportsAbsoluteDpadValues_platform();
+}
+
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+{
+	s3eIOSControllerSetReportsAbsoluteDpadValues_platform(value);
+}
+
+s3eBool s3eIOSControllerGetAllowsRotation()
+{
+	return s3eIOSControllerGetAllowsRotation_platform();
+}
+
+void s3eIOSControllerSetAllowsRotation(s3eBool value)
+{
+	s3eIOSControllerSetAllowsRotation_platform(value);
+}
+
 int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller)
 {
 	return s3eIOSControllerGetPlayerIndex_platform(controller);

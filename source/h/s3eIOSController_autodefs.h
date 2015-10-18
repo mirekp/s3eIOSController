@@ -15,7 +15,7 @@
 #ifndef S3E_EXT_REGISTER_KEY
 #define S3E_EXT_REGISTER_KEY(name, num, key) S3E_EXT_REGISTER(name, num)
 #endif
-S3E_EXT_REGISTER("s3eIOSController", 10)
+S3E_EXT_REGISTER("s3eIOSController", 15)
 #else
 
 #endif /* S3E_EXT_REGISTER */

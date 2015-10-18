@@ -50,6 +50,16 @@ s3eBool s3eIOSControllerSupportsBasic_platform(s3eIOSController* controller);
 
 s3eBool s3eIOSControllerSupportsExtended_platform(s3eIOSController* controller);
 
+s3eBool s3eIOSControllerSupportsMicro_platform(s3eIOSController* controller);
+
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues_platform();
+
+void s3eIOSControllerSetReportsAbsoluteDpadValues_platform(s3eBool value);
+
+s3eBool s3eIOSControllerGetAllowsRotation_platform();
+
+void s3eIOSControllerSetAllowsRotation_platform(s3eBool value);
+
 int32 s3eIOSControllerGetPlayerIndex_platform(s3eIOSController* controller);
 
 void s3eIOSControllerSetPlayerIndex_platform(s3eIOSController* controller, int32 index);

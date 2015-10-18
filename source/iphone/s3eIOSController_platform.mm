@@ -91,6 +91,54 @@ s3eBool s3eIOSControllerSupportsExtended_platform(s3eIOSController* controller)
     return gcController.extendedGamepad != nil;
 }
 
+s3eBool s3eIOSControllerSupportsMicro_platform(s3eIOSController* controller)
+{
+#ifdef TARGET_OS_TV
+    GCController *gcController = (GCController*)controller;
+    return gcController.microGamepad != nil;
+#else
+    return S3E_FALSE;
+#endif
+}
+
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+{
+#ifdef TARGET_OS_TV
+    return gcController.microGamepad && gcController.microGamepad.reportsAbsoluteDpadValues;
+#else
+    return S3E_FALSE;
+#endif
+}
+
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+{
+#ifdef TARGET_OS_TV
+    if (gcController.microGamepad)
+        gcController.microGamepad.reportsAbsoluteDpadValues = value;
+#else
+    return S3E_FALSE;
+#endif
+}
+
+s3eBool s3eIOSControllerGetAllowsRotation()
+{
+#ifdef TARGET_OS_TV
+    return gcController.microGamepad && gcController.microGamepad.allowsRotation;
+#else
+    return S3E_FALSE;
+#endif
+}
+
+void s3eIOSControllerSetAllowsRotation(s3eBool value)
+{
+#ifdef TARGET_OS_TV
+    if (gcController.microGamepad)
+        gcController.microGamepad.allowsRotation = value;
+#else
+    return S3E_FALSE;
+#endif
+}
+
 int32 s3eIOSControllerGetPlayerIndex_platform(s3eIOSController* controller)
 {
     GCController *gcController = (GCController*)controller;
@@ -109,21 +157,45 @@ s3eBool s3eIOSControllerGetButtonState_platform(s3eIOSController* controller, s3
     switch(button)
     {
         case S3E_IOSCONTROLLER_BUTTON_A:
-            return gcController.gamepad != nil && gcController.gamepad.buttonA.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.buttonA.pressed)
+#ifdef TARGET_OS_TV
+                    || (gcController.microGamepad != nil && gcController.microGamepad.buttonA.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_B:
             return gcController.gamepad != nil && gcController.gamepad.buttonB.pressed;
         case S3E_IOSCONTROLLER_BUTTON_X:
-            return gcController.gamepad != nil && gcController.gamepad.buttonX.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.buttonX.pressed)
+#ifdef TARGET_OS_TV
+                    || (gcController.microGamepad != nil && gcController.microGamepad.buttonX.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_Y:
             return gcController.gamepad != nil && gcController.gamepad.buttonY.pressed;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_UP:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.up.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.dpad.up.pressed)
+#ifdef TARGET_OS_TV
+                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.up.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_DOWN:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.down.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.dpad.down.pressed)
+#ifdef TARGET_OS_TV
+                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.up.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_LEFT:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.left.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.dpad.left.pressed)
+#ifdef TARGET_OS_TV
+                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.left.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_RIGHT:
-            return gcController.gamepad != nil && gcController.gamepad.dpad.right.pressed;
+            return (gcController.gamepad != nil && gcController.gamepad.dpad.right.pressed)
+#ifdef TARGET_OS_TV
+                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.right.pressed)
+#endif
+                    ;
         case S3E_IOSCONTROLLER_BUTTON_LEFT_SHOULDER:
             return gcController.gamepad != nil && gcController.gamepad.leftShoulder.pressed;
         case S3E_IOSCONTROLLER_BUTTON_RIGHT_SHOULDER:
@@ -159,9 +231,21 @@ float s3eIOSControllerGetAxisValue_platform(s3eIOSController* controller, s3eIOS
     switch(axis)
     {
         case S3E_IOSCONTROLLER_AXIS_DPAD_X:
-            return gcController.gamepad != nil ? gcController.gamepad.dpad.xAxis.value : 0.0f;
+            if (gcController.gamepad)
+                return gcController.gamepad.dpad.xAxis.value;
+#ifdef TARGET_OS_TV
+            elseif (gcController.microGamepad)
+                return gcController.microGamepad.dpad.xAxis.value;
+#endif
+            return 0.0f;
         case S3E_IOSCONTROLLER_AXIS_DPAD_Y:
-            return gcController.gamepad != nil ? gcController.gamepad.dpad.yAxis.value : 0.0f;
+            if (gcController.gamepad)
+                return gcController.gamepad.dpad.yAxis.value;
+#ifdef TARGET_OS_TV
+            elseif (gcController.microGamepad)
+                return gcController.microGamepad.dpad.yAxis.value;
+#endif
+            return 0.0f;
         case S3E_IOSCONTROLLER_AXIS_LEFT_THUMBSTICK_X:
             return gcController.extendedGamepad != nil ? gcController.extendedGamepad.leftThumbstick.xAxis.value : 0.0f;
         case S3E_IOSCONTROLLER_AXIS_LEFT_THUMBSTICK_Y:
