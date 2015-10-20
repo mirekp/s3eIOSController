@@ -206,7 +206,7 @@ s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller)
     return ret;
 }
 
-s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[7] func: s3eIOSControllerGetReportsAbsoluteDpadValues"));
 
@@ -217,7 +217,7 @@ s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
     s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues);
 #endif
 
-    s3eBool ret = g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues();
+    s3eBool ret = g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues(controller);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetReportsAbsoluteDpadValues);
@@ -226,7 +226,7 @@ s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
     return ret;
 }
 
-void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[8] func: s3eIOSControllerSetReportsAbsoluteDpadValues"));
 
@@ -237,7 +237,7 @@ void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
     s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues);
 #endif
 
-    g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues(value);
+    g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues(controller, value);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetReportsAbsoluteDpadValues);
@@ -246,7 +246,7 @@ void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
     return;
 }
 
-s3eBool s3eIOSControllerGetAllowsRotation()
+s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[9] func: s3eIOSControllerGetAllowsRotation"));
 
@@ -257,7 +257,7 @@ s3eBool s3eIOSControllerGetAllowsRotation()
     s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetAllowsRotation);
 #endif
 
-    s3eBool ret = g_Ext.m_s3eIOSControllerGetAllowsRotation();
+    s3eBool ret = g_Ext.m_s3eIOSControllerGetAllowsRotation(controller);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerGetAllowsRotation);
@@ -266,7 +266,7 @@ s3eBool s3eIOSControllerGetAllowsRotation()
     return ret;
 }
 
-void s3eIOSControllerSetAllowsRotation(s3eBool value)
+void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value)
 {
     IwTrace(IOSCONTROLLER_VERBOSE, ("calling s3eIOSController[10] func: s3eIOSControllerSetAllowsRotation"));
 
@@ -277,7 +277,7 @@ void s3eIOSControllerSetAllowsRotation(s3eBool value)
     s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetAllowsRotation);
 #endif
 
-    g_Ext.m_s3eIOSControllerSetAllowsRotation(value);
+    g_Ext.m_s3eIOSControllerSetAllowsRotation(controller, value);
 
 #ifdef LOADER_CALL_LOCK
     s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_s3eIOSControllerSetAllowsRotation);

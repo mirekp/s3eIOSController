@@ -48,24 +48,24 @@ s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller)
 	return s3eIOSControllerSupportsMicro_platform(controller);
 }
 
-s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller)
 {
-	return s3eIOSControllerGetReportsAbsoluteDpadValues_platform();
+	return s3eIOSControllerGetReportsAbsoluteDpadValues_platform(controller);
 }
 
-void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value)
 {
-	s3eIOSControllerSetReportsAbsoluteDpadValues_platform(value);
+	s3eIOSControllerSetReportsAbsoluteDpadValues_platform(controller, value);
 }
 
-s3eBool s3eIOSControllerGetAllowsRotation()
+s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 {
-	return s3eIOSControllerGetAllowsRotation_platform();
+	return s3eIOSControllerGetAllowsRotation_platform(controller);
 }
 
-void s3eIOSControllerSetAllowsRotation(s3eBool value)
+void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value)
 {
-	s3eIOSControllerSetAllowsRotation_platform(value);
+	s3eIOSControllerSetAllowsRotation_platform(controller, value);
 }
 
 int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller)

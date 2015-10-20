@@ -132,13 +132,13 @@ s3eBool s3eIOSControllerSupportsExtended(s3eIOSController* controller);
 
 s3eBool s3eIOSControllerSupportsMicro(s3eIOSController* controller);
 
-s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues();
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller);
 
-void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value);
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value);
 
-s3eBool s3eIOSControllerGetAllowsRotation();
+s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller);
 
-void s3eIOSControllerSetAllowsRotation(s3eBool value);
+void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value);
 
 int32 s3eIOSControllerGetPlayerIndex(s3eIOSController* controller);
 

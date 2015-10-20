@@ -101,7 +101,7 @@ s3eBool s3eIOSControllerSupportsMicro_platform(s3eIOSController* controller)
 #endif
 }
 
-s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
     return gcController.microGamepad && gcController.microGamepad.reportsAbsoluteDpadValues;
@@ -110,7 +110,7 @@ s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues()
 #endif
 }
 
-void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
+void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
     if (gcController.microGamepad)
@@ -120,7 +120,7 @@ void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eBool value)
 #endif
 }
 
-s3eBool s3eIOSControllerGetAllowsRotation()
+s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
     return gcController.microGamepad && gcController.microGamepad.allowsRotation;
@@ -129,7 +129,7 @@ s3eBool s3eIOSControllerGetAllowsRotation()
 #endif
 }
 
-void s3eIOSControllerSetAllowsRotation(s3eBool value)
+void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
     if (gcController.microGamepad)
