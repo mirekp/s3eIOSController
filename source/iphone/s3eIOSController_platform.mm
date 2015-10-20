@@ -115,8 +115,6 @@ void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, 
 #ifdef TARGET_OS_TV
     if (gcController.microGamepad)
         gcController.microGamepad.reportsAbsoluteDpadValues = value;
-#else
-    return S3E_FALSE;
 #endif
 }
 
@@ -134,8 +132,6 @@ void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool val
 #ifdef TARGET_OS_TV
     if (gcController.microGamepad)
         gcController.microGamepad.allowsRotation = value;
-#else
-    return S3E_FALSE;
 #endif
 }
 
