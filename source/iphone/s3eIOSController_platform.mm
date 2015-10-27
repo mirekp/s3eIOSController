@@ -104,6 +104,7 @@ s3eBool s3eIOSControllerSupportsMicro_platform(s3eIOSController* controller)
 s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
+    GCController *gcController = (GCController*)controller;
     return gcController.microGamepad && gcController.microGamepad.reportsAbsoluteDpadValues;
 #else
     return S3E_FALSE;
@@ -113,14 +114,16 @@ s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controlle
 void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
+    GCController *gcController = (GCController*)controller;
     if (gcController.microGamepad)
-        gcController.microGamepad.reportsAbsoluteDpadValues = value;
+        gcController.microGamepad.reportsAbsoluteDpadValues = (BOOL)value;
 #endif
 }
 
 s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
+    GCController *gcController = (GCController*)controller;
     return gcController.microGamepad && gcController.microGamepad.allowsRotation;
 #else
     return S3E_FALSE;
@@ -130,8 +133,9 @@ s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
+    GCController *gcController = (GCController*)controller;
     if (gcController.microGamepad)
-        gcController.microGamepad.allowsRotation = value;
+        gcController.microGamepad.allowsRotation = (BOOL)value;
 #endif
 }
 
@@ -171,25 +175,25 @@ s3eBool s3eIOSControllerGetButtonState_platform(s3eIOSController* controller, s3
         case S3E_IOSCONTROLLER_BUTTON_DPAD_UP:
             return (gcController.gamepad != nil && gcController.gamepad.dpad.up.pressed)
 #ifdef TARGET_OS_TV
-                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.up.pressed)
+                    || (gcController.microGamepad != nil && gcController.microGamepad.dpad.up.pressed)
 #endif
                     ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_DOWN:
             return (gcController.gamepad != nil && gcController.gamepad.dpad.down.pressed)
 #ifdef TARGET_OS_TV
-                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.up.pressed)
+                    || (gcController.microGamepad != nil && gcController.microGamepad.dpad.down.pressed)
 #endif
                     ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_LEFT:
             return (gcController.gamepad != nil && gcController.gamepad.dpad.left.pressed)
 #ifdef TARGET_OS_TV
-                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.left.pressed)
+                    || (gcController.microGamepad != nil && gcController.microGamepad.dpad.left.pressed)
 #endif
                     ;
         case S3E_IOSCONTROLLER_BUTTON_DPAD_RIGHT:
             return (gcController.gamepad != nil && gcController.gamepad.dpad.right.pressed)
 #ifdef TARGET_OS_TV
-                    || gcController.microGamepad != nil && gcController.microGamepad.dpad.right.pressed)
+                    || (gcController.microGamepad != nil && gcController.microGamepad.dpad.right.pressed)
 #endif
                     ;
         case S3E_IOSCONTROLLER_BUTTON_LEFT_SHOULDER:
@@ -230,7 +234,7 @@ float s3eIOSControllerGetAxisValue_platform(s3eIOSController* controller, s3eIOS
             if (gcController.gamepad)
                 return gcController.gamepad.dpad.xAxis.value;
 #ifdef TARGET_OS_TV
-            elseif (gcController.microGamepad)
+            else if (gcController.microGamepad)
                 return gcController.microGamepad.dpad.xAxis.value;
 #endif
             return 0.0f;
@@ -238,7 +242,7 @@ float s3eIOSControllerGetAxisValue_platform(s3eIOSController* controller, s3eIOS
             if (gcController.gamepad)
                 return gcController.gamepad.dpad.yAxis.value;
 #ifdef TARGET_OS_TV
-            elseif (gcController.microGamepad)
+            else if (gcController.microGamepad)
                 return gcController.microGamepad.dpad.yAxis.value;
 #endif
             return 0.0f;
