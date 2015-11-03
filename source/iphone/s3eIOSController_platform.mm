@@ -101,7 +101,7 @@ s3eBool s3eIOSControllerSupportsMicro_platform(s3eIOSController* controller)
 #endif
 }
 
-s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controller)
+s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues_platform(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
     GCController *gcController = (GCController*)controller;
@@ -111,7 +111,7 @@ s3eBool s3eIOSControllerGetReportsAbsoluteDpadValues(s3eIOSController* controlle
 #endif
 }
 
-void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, s3eBool value)
+void s3eIOSControllerSetReportsAbsoluteDpadValues_platform(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
     GCController *gcController = (GCController*)controller;
@@ -120,7 +120,7 @@ void s3eIOSControllerSetReportsAbsoluteDpadValues(s3eIOSController* controller, 
 #endif
 }
 
-s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
+s3eBool s3eIOSControllerGetAllowsRotation_platform(s3eIOSController* controller)
 {
 #ifdef TARGET_OS_TV
     GCController *gcController = (GCController*)controller;
@@ -130,7 +130,7 @@ s3eBool s3eIOSControllerGetAllowsRotation(s3eIOSController* controller)
 #endif
 }
 
-void s3eIOSControllerSetAllowsRotation(s3eIOSController* controller, s3eBool value)
+void s3eIOSControllerSetAllowsRotation_platform(s3eIOSController* controller, s3eBool value)
 {
 #ifdef TARGET_OS_TV
     GCController *gcController = (GCController*)controller;

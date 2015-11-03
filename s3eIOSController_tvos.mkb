@@ -1,0 +1,13 @@
+#!/usr/bin/env mkb
+# Builder mkb file for the s3eIOSController extension on tvos
+platform TVOS
+
+options
+{
+    lib
+    output-name="lib/tvos/libs3eIOSController.a"
+    output-name-debug="lib/tvos/libs3eIOSController_d.a"
+}
+define S3E_BUILD_EXT
+
+subproject s3eIOSController_build
