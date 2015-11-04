@@ -32,6 +32,7 @@ S3EIOSController *g_Controller = NULL;
     GCController *controller = (GCController*)notification.object;
     s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, S3E_IOSCONTROLLER_CALLBACK_DISCONNECTED, controller);
 }
+
 -(void)controllerPaused:(GCController*)controller
 {
     s3eEdkCallbacksEnqueue(S3E_EXT_IOSCONTROLLER_HASH, S3E_IOSCONTROLLER_CALLBACK_PAUSE_PRESSED, controller);
